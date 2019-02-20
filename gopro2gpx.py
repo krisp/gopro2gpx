@@ -54,7 +54,7 @@ def gopro_binary_to_csv(gopro_binary):
         if data_type == b'\x00':
             continue
         # If the label is empty, skip a packet.
-        if label_string == "EMPT":
+        if "EMPT" in label_string:
             gopro_binary.read(4)
             continue
         # Get the size and length of data.
@@ -62,7 +62,7 @@ def gopro_binary_to_csv(gopro_binary):
         num_values = desc[2] << 8 | desc[3]
         data_length = val_size * num_values
 
-        if label_string == "SCAL":
+        if "SCAL" in label_string:
             # Get the scale to apply to subsequent values.            
             scales = []
             for i in range(num_values):
